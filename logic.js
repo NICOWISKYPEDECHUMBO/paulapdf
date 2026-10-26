@@ -1,6 +1,6 @@
 function cleanPart(s){return s.normalize('NFC').replace(/[\\/]/g,'.').replace(/[<>:"|?*\x00-\x1f]/g,'').replace(/\s+/g,' ').trim().replace(/[. ]+$/,'')}
 function personName(text){
- const lines=text.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+ const lines=text.split(/\r?\n/).map(s=>s.replace(/\s+/g,' ').trim()).filter(Boolean);
  const valid=s=>s&&!/\d|�|COMISS|MINIST|SECRETARIA|INSTIT|GEST[ÃA]O|COORDENA|NACIONAL|SOLICITA|EXAMES|SUBSISTEMA|ENDERE|SERVIDOR|NASCIMENTO/i.test(s)&&s.split(/\s+/).length>=2&&s.length<90&&/^[\p{L} .’'\-]+$/u.test(s);
  const value=s=>s.replace(/^.*?\b(?:nome(?: completo)?|paciente|benefici[áa]rio)\s*[:\-]?\s*/i,'').replace(/\s+(?:sexo|cpf|data de nascimento)\b.*$/i,'').trim();
  let start=lines.findIndex(s=>/dados do (?:servidor|paciente|benefici)/i.test(s));
